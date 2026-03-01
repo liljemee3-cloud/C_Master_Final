@@ -1,9 +1,5 @@
 name: Build APK
-
-on:
-  push:
-    branches: [ "main" ] # تأكد أن اسم الفرع عندك هو main
-  workflow_dispatch: # هذا السطر سيسمح لك بتشغيل البناء يدوياً
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -11,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -22,14 +18,20 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Repair Android Structure
+        run: |
+          # هذا الأمر سيقوم بإنشاء الملفات الناقصة التي لم نجدها
+          flutter create . --platforms android
+
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: C-Master-Final-App
+          name: C-Master-Final-APK
           path: build/app/outputs/flutter-apk/app-release.apk
+          
