@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const CMasterPro());
-}
+void main() => runApp(const CMasterPro());
 
 class CMasterPro extends StatelessWidget {
   const CMasterPro({super.key});
@@ -11,11 +9,9 @@ class CMasterPro extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'C Master Pro',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.amber,
-        useMaterial3: true,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.amber,
+        scaffoldBackgroundColor: const Color(0xFF0A0A0A),
       ),
       home: const HomeScreen(),
     );
@@ -27,42 +23,38 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // قائمة بأسماء الأقسام العلمية التي سنملؤها
-    final List<Map<String, String>> categories = [
-      {"title": "الأساسيات (Basics)", "icon": "🏗️"},
-      {"title": "المصفوفات (Arrays)", "icon": "📊"},
-      {"title": "المؤشرات (Pointers)", "icon": "📍"},
-      {"title": "خوارزميات البحث", "icon": "🔍"},
+    final List<Map<String, String>> sections = [
+      {"title": "مقدمة في لغة C", "icon": "📜", "desc": "تاريخ اللغة وأهميتها"},
+      {"title": "الأساسيات (Variables)", "icon": "🔢", "desc": "المتغيرات وأنواع البيانات"},
+      {"title": "الشروط (If Statements)", "icon": "⚖️", "desc": "اتخاذ القرارات في الكود"},
+      {"title": "الدوال (Functions)", "icon": "⚙️", "desc": "تنظيم الكود وإعادة استخدامه"},
+      {"title": "المؤشرات (Pointers)", "icon": "📍", "desc": "أقوى ميزات لغة C"},
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("موسوعة C للمحترفين"),
-        centerTitle: true,
+        title: const Text("C Master Pro - الموسوعة"),
         backgroundColor: Colors.amber[800],
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ListView.builder(
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            return Card(
-              elevation: 4,
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                leading: Text(categories[index]['icon']!, style: const TextStyle(fontSize: 30)),
-                title: Text(categories[index]['title']!, style: const TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text("انقر للتعلم والغوص في العلوم"),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {
-                  // هنا سنبرمج الانتقال للدروس لاحقاً
-                },
-              ),
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: sections.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.all(10),
+            color: Colors.grey[900],
+            child: ListTile(
+              leading: Text(sections[index]['icon']!, style: const TextStyle(fontSize: 30)),
+              title: Text(sections[index]['title']!, style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)),
+              subtitle: Text(sections[index]['desc']!, style: const TextStyle(color: Colors.white70)),
+              trailing: const Icon(Icons.code, color: Colors.amber),
+              onTap: () {
+                // سنضيف صفحات الدروس هنا في الخطوة القادمة
+              },
+            ),
+          );
+        },
       ),
     );
   }
 }
-
