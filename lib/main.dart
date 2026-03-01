@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     } catch (e) {
-      debugPrint("لم يتم العثور على ملف التحديث بعد");
+      debugPrint("لم يتم العثور اي شيء تحب على ملف التحديث بعد");
     }
   }
 
